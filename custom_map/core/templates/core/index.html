@@ -71,7 +71,7 @@
      // Custom icon for markers
      const customIcon = L.icon({
             iconUrl: "{% static 'core/images/pin2.png' %}",
-            iconSize: [35, 41], // Size of the icon (adjust as necessary)
+            iconSize: [31, 31], // Size of the icon (adjust as necessary)
             iconAnchor: [12, 41], // Point of the icon which will correspond to marker's location
             popupAnchor: [0, -41] // Point from which the popup should open relative to the iconAnchor
         });
@@ -81,19 +81,19 @@
             { coords: [258, 246], popupText: "Location 1: <a href='page1.html' target='_blank'>click here</a>" },
            
             { coords: [865, 720], popupText: "Location 4: Description" },
-            { coords: [731, 506], popupText: "No 570: <a href='page1.html' target='_blank'>click here</a>" },
+            { coords: [507, 268], popupText: "No 570: <a href='page1.html' target='_blank'>click here</a>" },
             { coords: [734, 494], popupText: "No 569: <a href='page1.html' target='_blank'>click here</a>" },
-            { coords: [736, 513], popupText: "No 571: <a href='page1.html' target='_blank'>click here</a>" },
-            { coords: [733, 516], popupText: "No 572: <a href='page1.html' target='_blank'>click here</a>" },
-            { coords: [728, 516], popupText: "No 573: <a href='page1.html' target='_blank'>click here</a>" },
-            { coords: [723, 516], popupText: "No 547: <a href='page1.html' target='_blank'>click here</a>" },
-            { coords: [722, 505], popupText: "No 548: <a href='page1.html' target='_blank'>click here</a>" },
-            { coords: [726, 494], popupText: "No 550: <a href='page1.html' target='_blank'>click here</a>" },
+            { coords: [514, 263], popupText: "No 571: <a href='page1.html' target='_blank'>click here</a>" },
+            { coords: [517, 267], popupText: "No 572: <a href='page1.html' target='_blank'>click here</a>" },
+            { coords: [517, 272], popupText: "No 573: <a href='page1.html' target='_blank'>click here</a>" },
+            { coords: [516, 277], popupText: "No 547: <a href='page1.html' target='_blank'>click here</a>" },
+            { coords: [505, 278], popupText: "No 548: <a href='page1.html' target='_blank'>click here</a>" },
+            { coords: [495, 274], popupText: "No 550: <a href='page1.html' target='_blank'>click here</a>" },
             { coords: [727, 500], popupText: "No 540: <a href='page1.html' target='_blank'>click here</a>" },
             { coords: [727, 490], popupText: "No 551: <a href='page1.html' target='_blank'>click here</a>" },
-            { coords: [736, 489], popupText: "No 567: <a href='page1.html' target='_blank'>click here</a>" },
+            { coords: [489, 263], popupText: "No 567: <a href='page1.html' target='_blank'>click here</a>" },
             { coords: [735, 481], popupText: "No 565: <a href='page1.html' target='_blank'>click here</a>" },
-            { coords: [734, 474], popupText: "No 564: <a href='page1.html' target='_blank'>click here</a>" },
+            { coords: [480, 265], popupText: "No 564: <a href='page1.html' target='_blank'>click here</a>" },
         ];
         
         locations.forEach(location => {
@@ -105,7 +105,7 @@
         
         // Add the image overlay
         
-        const image = L.imageOverlay( "{% static 'core/images/map.svg' %}", bounds).addTo(map);
+        const image = L.imageOverlay( "{% static 'core/images/map1.svg' %}", bounds).addTo(map);
         
         
         
