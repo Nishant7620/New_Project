@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/leaflet.css' %}">
+    <style>
+        
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+    }
+    
+    #map {
+        height: 70%;
+        width: 70%;
+        margin-left: 15%;
+        overflow: hidden;
+    }
+    
+    #zoom-controls {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 1000;
+    }
+    
+    #zoom-controls button {
+        display: block;
+        margin: 5px 0;
+        padding: 10px;
+        background: white;
+        border: 1px solid #ccc;
+        cursor: pointer;
+    }
+    
+
+    </style>
+    
+</head>
+<body>
+ 
+<body>
+    <h1>this is map</h1>
+    <div id="map" style="height: 80vh;"></div>
+   
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+   
+    {% comment %} src="{% static 'core/js/script.js' %}" {% endcomment %}
+    <script src="{% static 'core/js/leaflet.js' %}"></script>
+    <script  >// Initialize the map
+
+        const map = L.map('map', {
+            crs: L.CRS.Simple, // Coordinate Reference System
+            minZoom: -1,
+            maxBounds: [[0, 0], [1000, 1000]], // Set the maximum bounds to match the image dimensions
+            maxBoundsViscosity: 1.0 // Prevent panning outside the bounds
+           
+            
+        });
+        
+        // Define the bounds for the image overlay
+        const bounds = [[0, 0], [1000, 1000]]; // Adjust based on your image's dimensions
+
+     // Custom icon for markers
+     const customIcon = L.icon({
+            iconUrl: "{% static 'core/images/pin2.png' %}",
+            iconSize: [35, 41], // Size of the icon (adjust as necessary)
+            iconAnchor: [12, 41], // Point of the icon which will correspond to marker's location
+            popupAnchor: [0, -41] // Point from which the popup should open relative to the iconAnchor
+        });
+        
+        // Add markers with popups
+        const locations = [
+            { coords: [258, 246], popupText: "Location 1: <a href='page1.html' target='_blank'>click here</a>" },
+           
+            { coords: [865, 720], popupText: "Location 4: Description" },
+            { coords: [731, 506], popupText: "No 570: <a href='page1.html' target='_blank'>click here</a>" },
+            { coords: [734, 494], popupText: "No 569: <a href='page1.html' target='_blank'>click here</a>" },
+            { coords: [736, 513], popupText: "No 571: <a href='page1.html' target='_blank'>click here</a>" },
+            { coords: [733, 516], popupText: "No 572: <a href='page1.html' target='_blank'>click here</a>" },
+            { coords: [728, 516], popupText: "No 573: <a href='page1.html' target='_blank'>click here</a>" },
+            { coords: [723, 516], popupText: "No 547: <a href='page1.html' target='_blank'>click here</a>" },
+            { coords: [722, 505], popupText: "No 548: <a href='page1.html' target='_blank'>click here</a>" },
+            { coords: [726, 494], popupText: "No 550: <a href='page1.html' target='_blank'>click here</a>" },
+            { coords: [727, 500], popupText: "No 540: <a href='page1.html' target='_blank'>click here</a>" },
+            { coords: [727, 490], popupText: "No 551: <a href='page1.html' target='_blank'>click here</a>" },
+            { coords: [736, 489], popupText: "No 567: <a href='page1.html' target='_blank'>click here</a>" },
+            { coords: [735, 481], popupText: "No 565: <a href='page1.html' target='_blank'>click here</a>" },
+            { coords: [734, 474], popupText: "No 564: <a href='page1.html' target='_blank'>click here</a>" },
+        ];
+        
+        locations.forEach(location => {
+            const marker = L.marker(location.coords,{ icon: customIcon }).addTo(map);
+            marker.bindPopup(location.popupText);
+        });
+        
+        
+        
+        // Add the image overlay
+        
+        const image = L.imageOverlay( "{% static 'core/images/map.svg' %}", bounds).addTo(map);
+        
+        
+        
+        // Fit the map to the image bounds
+        map.fitBounds(bounds);
+        </script>
+</body>
+</html>
