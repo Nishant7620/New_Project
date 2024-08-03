@@ -44,7 +44,7 @@
     </style>
     
 </head>
-<body>
+
  
 <body>
     <h1>this is map</h1>
@@ -59,6 +59,11 @@
         const map = L.map('map', {
             crs: L.CRS.Simple, // Coordinate Reference System
             minZoom: -1,
+             maxZoom: 2, // Maximum zoom level
+    zoomSnap: 0.5, // Allow half-step zoom levels for smoother zooming
+    zoomDelta: 0.5, // Allow smaller zoom steps
+            
+            
             maxBounds: [[0, 0], [1000, 1000]], // Set the maximum bounds to match the image dimensions
             maxBoundsViscosity: 1.0 // Prevent panning outside the bounds
            
@@ -76,29 +81,26 @@
             popupAnchor: [0, -41] // Point from which the popup should open relative to the iconAnchor
         });
         
-        // Add markers with popups
-        const locations = [
-            { coords: [258, 246], popupText: "Location 1: <a href='page1.html' target='_blank'>click here</a>" },
-           
-            { coords: [865, 720], popupText: "Location 4: Description" },
-            { coords: [507, 268], popupText: "No 570: <a href='page1.html' target='_blank'>click here</a>" },
-            { coords: [734, 494], popupText: "No 569: <a href='page1.html' target='_blank'>click here</a>" },
-            { coords: [514, 263], popupText: "No 571: <a href='page1.html' target='_blank'>click here</a>" },
-            { coords: [517, 267], popupText: "No 572: <a href='page1.html' target='_blank'>click here</a>" },
-            { coords: [517, 272], popupText: "No 573: <a href='page1.html' target='_blank'>click here</a>" },
-            { coords: [516, 277], popupText: "No 547: <a href='page1.html' target='_blank'>click here</a>" },
-            { coords: [505, 278], popupText: "No 548: <a href='page1.html' target='_blank'>click here</a>" },
-            { coords: [495, 274], popupText: "No 550: <a href='page1.html' target='_blank'>click here</a>" },
-            { coords: [727, 500], popupText: "No 540: <a href='page1.html' target='_blank'>click here</a>" },
-            { coords: [727, 490], popupText: "No 551: <a href='page1.html' target='_blank'>click here</a>" },
-            { coords: [489, 263], popupText: "No 567: <a href='page1.html' target='_blank'>click here</a>" },
-            { coords: [735, 481], popupText: "No 565: <a href='page1.html' target='_blank'>click here</a>" },
-            { coords: [480, 265], popupText: "No 564: <a href='page1.html' target='_blank'>click here</a>" },
-        ];
-        
+       
+        // Add markers with popups using Django data
+    const locations = [
+    {% for location in locations %}
+    {
+        coords: [{{ location.x_coords }}, {{ location.y_coords }}],
+        popupText: "Location {{ location.name1 }}: <a href='{% url 'details' location.id %}'>click here</a>"
+    }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+    ];
+
+
+     
         locations.forEach(location => {
-            const marker = L.marker(location.coords,{ icon: customIcon }).addTo(map);
-            marker.bindPopup(location.popupText);
+            if (location.coords[0] >= 0 && location.coords[0] <= 1000 && location.coords[1] >= 0 && location.coords[1] <= 1000) {
+                const marker = L.marker(location.coords, { icon: customIcon }).addTo(map);
+                marker.bindPopup(location.popupText);
+            } else {
+                console.error("Invalid coordinates: ", location.coords); // Debugging: Check invalid coordinates
+            }
         });
         
         
@@ -111,6 +113,8 @@
         
         // Fit the map to the image bounds
         map.fitBounds(bounds);
+
+        map.setView([600, 400], 1.8);
         </script>
 </body>
 </html>

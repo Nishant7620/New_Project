@@ -5,4 +5,4 @@ from .models import Location
 
 @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
-    list_display = ['id','name1','name2','price','satta_bara_no']
+    list_display = ['id','name1','name2','price','satta_bara_no','x_coords','y_coords']
